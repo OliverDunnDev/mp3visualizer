@@ -1,0 +1,11 @@
+body {
+  font-family: var(--font-display);
+  background-color: #0f172a; /* Tailwind slate-900 */
+  color: white;
+  min-height: 100vh;
+}
+
+canvas {
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem var(--color-main);
+}
