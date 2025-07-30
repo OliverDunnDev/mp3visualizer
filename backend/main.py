@@ -1,7 +1,7 @@
 # backend/main.py
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, Response
 import numpy as np
 import librosa
 import soundfile as sf
@@ -15,12 +15,21 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",               # Local dev
-        "https://mp3visualizer.vercel.app/",  # Deployed frontend (replace with actual)
+        "https://mp3visualizer.vercel.app",   # Deployed frontend (no trailing slash!)
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Handle CORS preflight requests
+@app.options("/{rest_of_path:path}")
+async def preflight_handler(request: Request, rest_of_path: str):
+    return Response(status_code=200)
+
+@app.get("/upload")
+async def upload_get():
+    return {"message": "Use POST to upload audio."}
 
 @app.post("/upload")
 async def upload_audio(file: UploadFile = File(...)):
@@ -74,4 +83,5 @@ async def upload_audio(file: UploadFile = File(...)):
         import traceback
         traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})
+
 
