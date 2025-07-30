@@ -15,7 +15,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",               # Local dev
-        "https://your-frontend.netlify.app",  # Deployed frontend (replace with actual)
+        "https://mp3visualizer.vercel.app/",  # Deployed frontend (replace with actual)
     ],
     allow_credentials=True,
     allow_methods=["*"],
