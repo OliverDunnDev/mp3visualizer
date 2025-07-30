@@ -1,4 +1,3 @@
-# backend/main.py
 from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, Response
@@ -6,7 +5,6 @@ import numpy as np
 import librosa
 import soundfile as sf
 import io
-import uvicorn
 
 app = FastAPI()
 
@@ -15,12 +13,17 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",               # Local dev
-        "https://mp3visualizer.vercel.app",   # Deployed frontend (no trailing slash!)
+        "https://mp3visualizer.vercel.app",   # Deployed frontend (no trailing slash)
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Health check route for Render and others
+@app.get("/")
+async def root():
+    return {"message": "MP3 Visualizer backend is running"}
 
 # Handle CORS preflight requests
 @app.options("/{rest_of_path:path}")
@@ -83,5 +86,3 @@ async def upload_audio(file: UploadFile = File(...)):
         import traceback
         traceback.print_exc()
         return JSONResponse(status_code=500, content={"error": str(e)})
-
-
