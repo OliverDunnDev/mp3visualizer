@@ -19,7 +19,7 @@ function App() {
     formData.append("file", file);
 
     try {
-      const res = await fetch("https://music-visualizer-api.onrender.com/upload", {
+      const res = await fetch("https://mp3visualizer.onrender.com/upload", {
         method: "POST",
         body: formData,
       });
