@@ -10,7 +10,7 @@ A full stack application that lets users upload MP3 files and generates real-tim
 
 ## 🚀 Live Demo
 
-👉 [Visit the Live App](https://your-live-url.com)
+👉 [Visit the Live App, very limited capability due to render's free plan being very limited](https://mp3visualizer.vercel.app/)
 
 ## 📦 Run Locally
 
