@@ -18,8 +18,13 @@ function App() {
     const formData = new FormData();
     formData.append("file", file);
 
+    const baseUrl =
+      import.meta.env.MODE === "development"
+        ? "http://localhost:8000"
+        : "https://mp3visualizer.onrender.com";
+
     try {
-      const res = await fetch("https://mp3visualizer.onrender.com/upload", {
+      const res = await fetch(`${baseUrl}/upload`, {
         method: "POST",
         body: formData,
       });
@@ -73,6 +78,3 @@ function App() {
 }
 
 export default App;
-
-
-
