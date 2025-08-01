@@ -42,9 +42,10 @@ async def upload_audio(file: UploadFile = File(...)):
 
         # Load audio with soundfile and librosa
         audio_stream = io.BytesIO(audio_bytes)
-        y, sr = librosa.load(audio_stream, sr=None)
+        # Load first 30 seconds of audio at 22050 Hz
+        y, sr = librosa.load(audio_stream, sr=22050, duration=30.0)
         print(f"Loaded audio, duration: {librosa.get_duration(y=y, sr=sr)} seconds")
-        
+
         if len(y.shape) > 1:
             y = np.mean(y, axis=1)  # Convert to mono if stereo
 
